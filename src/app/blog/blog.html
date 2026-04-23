@@ -1,0 +1,47 @@
+<div class="page">
+
+  <header>
+   
+    <h1>The Dev Journal</h1>
+    <p class="subtitle">Click any title to read the post</p>
+  </header>
+
+  <main>
+
+    <!-- Loading State -->
+    <div class="status-message" *ngIf="loading">
+      <div class="spinner"></div>
+      <span>Loading posts...</span>
+    </div>
+
+    <!-- Error State -->
+    <div class="status-message error" *ngIf="error">
+      <span>⚠ Could not connect to backend. Make sure the server is running on port 3000.</span>
+    </div>
+
+    <!-- Posts List -->
+    <ul class="post-list" *ngIf="!loading && !error">
+      <li
+        *ngFor="let post of posts"
+        class="post-item"
+        [class.active]="selectedPost?.id === post.id"
+        (click)="selectPost(post)"
+      >
+        <div class="post-header">
+          <span class="post-number">{{ post.id < 10 ? '0' + post.id : post.id }}</span>
+          <h2 class="post-title">{{ post.title }}</h2>
+          <span class="arrow" [class.open]="selectedPost?.id === post.id">&#8964;</span>
+        </div>
+
+        <div class="post-description" *ngIf="selectedPost?.id === post.id">
+          <p>{{ post.description }}</p>
+        </div>
+      </li>
+    </ul>
+
+    <footer *ngIf="!loading && !error">
+      <span>{{ posts.length }} posts available</span>
+    </footer>
+
+  </main>
+</div>

@@ -1,59 +1,83 @@
-# Frontend
+# Blog Post Viewer — MEAN Stack
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+A simple blog viewer: Node/Express backend serves static posts, Angular frontend displays them. Clicking a title expands its description.
 
-## Development server
+---
 
-To start a local development server, run:
+## Project Structure
+
+```
+blog-app/
+├── .gitignore
+├── README.md
+├── backend/
+│   ├── package.json
+│   └── server.js           ← Express API on port 3000
+└── frontend/
+    ├── angular.json
+    ├── package.json
+    ├── tsconfig.json
+    ├── tsconfig.app.json
+    └── src/
+        ├── index.html
+        ├── main.ts
+        ├── styles.css
+        └── app/
+            ├── app.component.ts
+            ├── app.config.ts
+            └── blog/
+                ├── blog.component.ts   ← logic
+                ├── blog.component.html ← template
+                └── blog.component.css  ← styles
+```
+
+---
+
+## Requirements
+
+- **Node.js v18+** → https://nodejs.org/en/download
+- **Angular CLI** (install once, globally):
 
 ```bash
+npm install -g @angular/cli
+```
+
+---
+
+## Run the App
+
+### Step 1 — Start the Backend
+
+```bash
+cd blog-app/backend
+npm install
+node server.js
+```
+
+You should see: `Backend running on http://localhost:3000`
+
+---
+
+### Step 2 — Start the Frontend (new terminal)
+
+```bash
+cd blog-app/frontend
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+You should see: `Application bundle generation complete. Server is listening on localhost:4200`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Step 3 — Open in browser
 
-```bash
-ng generate component component-name
-```
+Go to: **http://localhost:4200**
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Click any blog post title to expand its description. Click again to collapse.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## API Endpoint
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`GET http://localhost:3000/api/posts` — returns the list of blog posts as JSON.
